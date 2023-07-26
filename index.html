@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+        }
+        #total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <form id="name-list-form">
+        <label for="name">Mercado:</label>
+        <input type="text" id="Mercado" placeholder="Digite o nome do Mercado">
+    <form id="shopping-list-form">
+        <label for="item">Item:</label>
+        <input type="text" id="item" placeholder="Digite o nome do item">
+        <label for="price">Preço:</label>
+        <input type="text" id="price" placeholder="Digite o preço do item">
+        <button type="button" onclick="addItem()">Adicionar</button>
+    </form>
+    <ul id="name-mercado">
+    </ul>
+    <ul id="item-list">
+    </ul>
+    <p id="total">Total: R$ 0.00</p>
+
+    <script>
+        const itemList = document.getElementById('item-list');
+        const totalElement = document.getElementById('total');
+        let total = 0;
+
+        function addItem() {
+            const item = document.getElementById('item').value;
+            const price = parseFloat(document.getElementById('price').value);
+
+            if (item && price) {
+                const li = document.createElement('li');
+                li.textContent = `${item} - R$ ${price.toFixed(2)}`;
+                itemList.appendChild(li);
+                total += price;
+                totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+                document.getElementById('item').value = '';
+                document.getElementById('price').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
