@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Lista de Compras</title>
     <style>
         body {
@@ -35,18 +36,15 @@
 </head>
 <body>
     <h1>Lista de Compras</h1>
-    <form id="name-list-form">
-        <label for="name">Mercado:</label>
-        <input type="text" id="Mercado" placeholder="Digite o nome do Mercado">
     <form id="shopping-list-form">
         <label for="item">Item:</label>
         <input type="text" id="item" placeholder="Digite o nome do item">
+        <label for="quantity">Quantidade:</label>
+        <input type="text" id="quantity" placeholder="Digite a quantidade do item">
         <label for="price">Preço:</label>
         <input type="text" id="price" placeholder="Digite o preço do item">
         <button type="button" onclick="addItem()">Adicionar</button>
     </form>
-    <ul id="name-mercado">
-    </ul>
     <ul id="item-list">
     </ul>
     <p id="total">Total: R$ 0.00</p>
@@ -58,15 +56,17 @@
 
         function addItem() {
             const item = document.getElementById('item').value;
+            const quantity = parseFloat(document.getElementById('quantity').value);
             const price = parseFloat(document.getElementById('price').value);
 
-            if (item && price) {
+            if (item && quantity && price) {
                 const li = document.createElement('li');
-                li.textContent = `${item} - R$ ${price.toFixed(2)}`;
+                li.textContent = `${item} - ${quantity}x - R$ ${(price * quantity).toFixed(2)}`;
                 itemList.appendChild(li);
-                total += price;
+                total += price * quantity;
                 totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
                 document.getElementById('item').value = '';
+                document.getElementById('quantity').value = '';
                 document.getElementById('price').value = '';
             }
         }
